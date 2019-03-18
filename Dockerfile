@@ -11,6 +11,6 @@ ADD kubecontext /root/.kube/config
 RUN mkdir /opt/helm ; cd /opt/helm ; wget https://storage.googleapis.com/kubernetes-helm/helm-v2.13.0-linux-amd64.tar.gz
 RUN cd /opt/helm ; tar -zxf helm-v2.13.0-linux-amd64.tar.gz
 ENV PATH="/opt/helm/linux-amd64/:${PATH}"
-RUN cd /opt/helm/linux-amd64/ ; helm init --history-max 200
+#RUN cd /opt/helm/linux-amd64/ ; helm init --history-max 200
 RUN mkdir /opt/awx ; cd /opt/awx ; git clone https://github.com/ansible/awx.git
 WORKDIR /opt/
