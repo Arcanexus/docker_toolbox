@@ -1,8 +1,8 @@
 FROM centos:centos8
 MAINTAINER Alexandre Schwartzmann <schwartzmann.a@gmail.com>
-RUN yum install -y epel-release && yum clean all && \
+RUN yum install -y epel-release && yum install -y dnf-plugins-core && yum clean all && \
     dnf clean all && \
-    dnf config-manager --set-enabled PowerTools && \
+    # dnf config-manager --set-enabled PowerTools && \
     dnf -y install git tig vim tree wget curl cntlm unzip jq \
     dnf -y install python-pip python3-pip \
     dnf -y install docker docker-compose \
