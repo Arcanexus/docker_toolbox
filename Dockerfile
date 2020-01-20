@@ -13,7 +13,7 @@ RUN yum install -y epel-release && yum install -y dnf-plugins-core tig && yum cl
     dnf -y install docker-ce # --nobest
 RUN systemctl disable firewalld
 RUN pip3 install --upgrade pip ; pip3 install ansible docker-py j2cli docker-compose
-RUN pip2 install --upgrade pip ; pip3 install ansible
+RUN pip2 install --upgrade pip ; pip2 install ansible
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 RUN alias pip='pip2' && alias python='python2'
 COPY entrypoint.sh /bin/entrypoint.sh
