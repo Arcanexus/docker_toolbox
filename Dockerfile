@@ -1,23 +1,15 @@
-FROM centos:centos8
+FROM alpine:latest
 LABEL maintainer="Alexandre Schwartzmann <admin@arcanexus.com>"
-ADD k8s.repo /etc/yum.repos.d/k8s.repo
-RUN yum install -y epel-release && yum install -y dnf-plugins-core tig && yum clean all && \
-    dnf clean all && \
-    dnf -y install 'dnf-command(config-manager)' && \
-    dnf config-manager --set-enabled PowerTools && \
-    dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
-    dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm && \
-    dnf -y install git vim tree wget curl unzip jq && \
-    dnf -y install python2-pip python3-pip && \
-    dnf -y install kubelet kubeadm kubectl --disableexcludes=kubernetes && \
-    dnf -y install docker-ce # --nobest
-RUN systemctl disable firewalld
-# RUN pip3 install --upgrade pip ; pip3 install ansible docker-py j2cli docker-compose
-# RUN pip2 install --upgrade pip ; pip2 install ansible
-RUN pip3 install ansible docker-py j2cli docker-compose
-RUN pip2 install ansible
-RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-RUN alias pip='pip2' && alias python='python2'
+RUN apk update && apk upgrade \
+  && apk add docker-cli docker-compose \
+  && curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl \
+  && chmod +x /usr/bin/kubectl \
+  # && kubectl version --client \
+  && apk add curl wget git tig bash tree vim openssl openssh nmap \
+  && pip3 install -U pip ansible \
+  && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
+  && apk add openrc &&  mkdir /run/openrc && touch /run/openrc/softlevel \
+  && syslogd
 COPY entrypoint.sh /bin/entrypoint.sh
 RUN chmod +x /bin/entrypoint.sh
 ENTRYPOINT ["/bin/entrypoint.sh"]
