@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-ls -l /tmp/.ssh
+ls -la /tmp/
 if [ -d /tmp/.ssh ]; then
   cp -R /tmp/.ssh /root/.ssh
   echo $?
