@@ -4,8 +4,10 @@ ls -l /tmp/.ssh
 if [ -d /tmp/.ssh ]; then
   cp -R /tmp/.ssh /root/.ssh
   echo $?
-  chmod 700 /root/.ssh
-  chmod 600 /root/.ssh/*
-  chmod 644 /root/.ssh/*.pub
+  chmod 755 /root/.ssh
+  find /root/.ssh/ -type f |xargs -ifil chmod 600 fil
+  find /root/.ssh/*.pub -type f |xargs -ifil chmod 644 fil
 fi
+ls -la /root/.ssh/
+
 exec "$@"
