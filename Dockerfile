@@ -1,5 +1,5 @@
 FROM centos:centos8
-MAINTAINER Alexandre Schwartzmann <schwartzmann.a@gmail.com>
+LABEL maintainer="Alexandre Schwartzmann <admin@arcanexus.com>"
 ADD k8s.repo /etc/yum.repos.d/k8s.repo
 RUN yum install -y epel-release && yum install -y dnf-plugins-core tig && yum clean all && \
     dnf clean all && \
